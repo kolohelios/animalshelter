@@ -1,0 +1,132 @@
+<!-- standard stuff here; tell the browser what to expect, provide meta data, initialize the Angular app, and load our stylesheets -->
+<!DOCTYPE html>
+<html lang="en" ng-app="animalshelter">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Animal Shelter</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cerulean/bootstrap.min.css">
+    <!-- we're only using Font Awesome for the pencil and trashcan icons; probably could have used standard Bootstrap glyphicons -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  </head>
+
+  <!-- initalize Angular controller -->
+  <body ng-controller="HomeCtrl">
+    <div class="container">
+      <div class="header clearfix">
+        <!-- nav bar at the top - just a brand and home button pill for now -->
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">Home</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Animal Shelter</h3>
+      </div>
+      <!-- present the Create Record button which changes the view -->
+      <div class="row" ng-hide="editMode || createMode">
+        <div class="col-xs-12">
+          <!-- I have mixed feelings about using ngClick like this (setting a var) though it seems like a waste to make a separate
+          function to handle it -->
+          <button class="btn btn-success" ng-click="createMode = true">Create Record</button>
+        </div>
+      </div>
+      <!-- the following will only display when we're either in 'edit' or 'create' modes -->
+      <div class="row" ng-show="editMode || createMode">
+        <form name="petForm">
+          <div class="col-xs-12">
+            <!-- change the section header depending on whether we're creating or editing -->
+            <h3 ng-hide="editMode">Create Record</h3>
+            <h3 ng-show="editMode">Edit Record</h3>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="petname">Name</label>
+              <input class="form-control" type="text" name="petname" ng-model="pet.name">
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="pettype">Type</label>
+              <!-- design decision to use select where applicable instead of a free-form textbox to limit possible selections -->
+              <select class="form-control" name="pettype" ng-model="pet.type">
+                <option>cat</option>
+                <option>dog</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="petsize">Size</label>
+              <select class="form-control" name="petsize" ng-model="pet.size">
+                <option>small</option>
+                <option>medium</option>
+                <option>large</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="petgender">Gender</label>
+              <select class="form-control" name="petgender" ng-model="pet.gender">
+                <option>female</option>
+                <option>male</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <label for="petcolor">Color</label>
+              <input class="form-control" type="text" name="petcolor" ng-model="pet.color">
+            </div>
+          </div>
+        </div>
+        <!-- this section will only be visible when we're in 'edit' or 'create' modes -->
+        <div class="row" ng-show="editMode || createMode">
+          <div class="col-xs-12">
+            <!-- present the appropriate button (Edit or Create) -->
+            <button class="btn btn-success" ng-hide="editMode" ng-click="create(pet)">Add Record</button>
+            <button class="btn btn-primary" ng-show="editMode" ng-click="save(pet)">Save Record</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <!-- we only display this table if we are not creating or editing a record to keep the view as clean as possible -->
+      <div class="row" ng-hide="editMode || createMode">
+        <div class="col-xs-12">
+          <h3>Records</h3>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Size</th>
+                <th>Gender</th>
+                <th>Color</th>
+                <th>Edit</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- ngRepeat will iterate over and display the pets in our array that is loaded by the controller ($scope.pets) and display the 
+              edit and delete buttons as well -->
+              <tr ng-repeat="pet in pets">
+                <td>{{pet.name}}</td>
+                <td>{{pet.type}}</td>
+                <td>{{pet.size}}</td>
+                <td>{{pet.gender}}</td>
+                <td>{{pet.color}}</td>
+                <td class="info text-center"><i class="fa fa-pencil" ng-click="edit(pet)"></i></td>
+                <td class="danger text-center"><i class="fa fa-trash" ng-click="remove(pet._id)"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- load our JavaScript files, Angular first and then our custom JS; we're not using any Bootstrap UI that would require its JS -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>

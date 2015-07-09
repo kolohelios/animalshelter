@@ -1,0 +1,18 @@
+[
+  {
+    "_id": {"$oid": "a00000000000000000000001"},
+    "name": "Fluffy",
+    "type": "dog",
+    "size": "medium",
+    "gender": "female",
+    "color": "brown"
+  },
+  {
+    "_id": {"$oid": "a00000000000000000000002"},
+    "name": "Miffy",
+    "type": "cat",
+    "size": "small",
+    "gender": "female",
+    "color": "white"
+  }
+]

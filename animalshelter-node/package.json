@@ -1,0 +1,27 @@
+{
+  "name": "animalshelter",
+  "version": "1.0.0",
+  "description": "animal shelter CRUD app, backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "lab -v -c -t 100 -L -n eslint -e test"
+  },
+  "author": "Jon Edwards <jkedwards@me.com>",
+  "license": "MIT",
+  "dependencies": {
+    "blipp": "^2.2.1",
+    "eslint": "^0.24.0",
+    "good": "^6.2.0",
+    "good-console": "^5.0.2",
+    "hapi": "^8.8.0",
+    "hoek": "^2.14.0",
+    "joi": "^6.5.0",
+    "mongoose": "^4.0.6"
+  },
+  "devDependencies": {
+    "chai": "^3.0.0",
+    "lab": "^5.13.0",
+    "sinon": "^1.15.4"
+  }
+}
